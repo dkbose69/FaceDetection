@@ -3,9 +3,6 @@ import mediapipe as mp
 import tempfile
 import streamlit as st
 
-#demo video 
-DEMO_VIDEO = 'demo.mp4'
-
 #mediapipe inbuilt solutions 
 mp_face_detection = mp.solutions.face_detection
 mp_drawing = mp.solutions.drawing_utils
@@ -35,17 +32,8 @@ def main():
     #temporary file name 
     tfflie = tempfile.NamedTemporaryFile(delete=False)
 
-    if not video_file_buffer:
-
-        if use_webcam:
-            vid = cv2.VideoCapture(0)
-        else:
-            vid = cv2.VideoCapture(DEMO_VIDEO)
-            tfflie.name = DEMO_VIDEO
-    
-    else:
-        tfflie.write(video_file_buffer.read())
-        vid = cv2.VideoCapture(tfflie.name)
+    tfflie.write(video_file_buffer.read())
+    vid = cv2.VideoCapture(tfflie.name)
 
     #values 
     width = int(vid.get(cv2.CAP_PROP_FRAME_WIDTH))
